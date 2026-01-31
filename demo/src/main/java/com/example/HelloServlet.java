@@ -15,6 +15,14 @@ public class HelloServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
          response.setContentType("text/html");
          PrintWriter out = response.getWriter();
+         out.println("<!DOCTYPE html>");
+         out.println("""
+                    <head>
+                        <title>Hello Servlet</title>
+                        <link rel="stylesheet" type="text/css" href="css/main.css">
+                        <script src="js/main.js"></script>
+                    </head>
+                 """);
          out.println("<html><body>");
          out.println("<h1>" + message + "</h1>");
          out.println("</body></html>");
