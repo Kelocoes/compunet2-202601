@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,10 +11,9 @@ public class UserRepository {
     private List<User> users;
 
     public void init() {
-        this.users = List.of(
-            createUser(1, "jdoe", "John", "Doe", 30),
-            createUser(2, "asmith", "Alice", "Smith", 25)
-        );
+        this.users = new ArrayList<>();
+        this.users.add(createUser(1, "jdoe", "John", "Doe", 30));
+        this.users.add(createUser(2, "asmith", "Alice", "Smith", 25));
     }
 
     private User createUser(Integer id, String username, String name, String lastname, Integer age) {
@@ -41,8 +41,12 @@ public class UserRepository {
     }
 
     public User saveUser(User user) {
-        // In a real implementation, this would save the user to a database
-        // Here we just return the user for demonstration purposes
-        return user;
+        User newUser = new User();
+        newUser.setId(this.users.size() + 1);
+        newUser.setUsername(user.getUsername());
+        newUser.setName(user.getName());
+        newUser.setLastname(user.getLastname());
+        this.users.add(newUser);
+        return newUser;
     }
 }
