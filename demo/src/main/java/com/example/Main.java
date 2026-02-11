@@ -5,6 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.example.beans.MyFirstBean;
 import com.example.service.GameService;
+import com.example.service.UserService;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,6 +20,9 @@ public class Main {
         GameService gameService1 = (GameService) context.getBean("GameService");
         
         System.out.println("Are gameService1 and gameService2 different instances? " + (gameService != gameService1));
+
+        UserService userService = (UserService) context.getBean("UserService");
+        System.out.println("Users: " + userService.getUsers());
 
         ((ClassPathXmlApplicationContext) context).close();
     }

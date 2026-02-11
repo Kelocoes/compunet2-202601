@@ -20,4 +20,12 @@
         <property name="gameRepository" ref="GameRepository" />
     </bean>
 
+    <bean id="UserRepository" class="com.example.repository.UserRepository" init-method="init"
+        destroy-method="destroy">
+    </bean>
+
+    <bean id="UserService" class="com.example.service.UserService" scope="prototype">
+        <constructor-arg ref="UserRepository" />
+    </bean>
+
 </beans>
