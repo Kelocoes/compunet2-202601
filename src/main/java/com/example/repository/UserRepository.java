@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,45 +9,73 @@ import com.example.model.User;
 
 public class UserRepository {
     
-    private List<User> users;
+    private List<User> users = new ArrayList<User>();
+    private int nextId = 1;
 
     public void init() {
-        this.users = new ArrayList<>();
-        this.users.add(createUser(1, "jdoe", "John", "Doe", 30));
-        this.users.add(createUser(2, "asmith", "Alice", "Smith", 25));
+        save(new User("ana", "ana@example.com", "hash-ana", "Bio de Ana", new Timestamp(System.currentTimeMillis())));
+        save(new User("carlos", "carlos@example.com", "hash-carlos", "Bio de Carlos", new Timestamp(System.currentTimeMillis())));
+        save(new User("luisa", "luisa@example.com", "hash-luisa", "Bio de Luisa", new Timestamp(System.currentTimeMillis())));
     }
 
-    private User createUser(Integer id, String username, String name, String lastname, Integer age) {
-        User user = new User();
-        user.setId(id);
-        user.setUsername(username);
-        user.setName(name);
-        user.setLastname(lastname);
-        user.setAge(age);
+    public List<User> findAll() {
+        return new ArrayList<User>(users);
+    }
+
+    public Optional<User> findById(Integer id) {
+        if (id == null) {
+            return Optional.empty();
+        }
+
+        for (User user : users) {
+            if (id.equals(user.getId())) {
+                return Optional.of(user);
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    public User save(User user) {
+        if (user == null) {
+            return null;
+        }
+
+        if (user.getId() == null) {
+            user.setId(nextId++);
+            users.add(user);
+            return user;
+        }
+
+        for (int i = 0; i < users.size(); i++) {
+            if (user.getId().equals(users.get(i).getId())) {
+                users.set(i, user);
+                return user;
+            }
+        }
+
+        users.add(user);
         return user;
     }
 
-    public List<User> getUsers() {
-        return this.users;
+    public boolean delete(Integer id) {
+        if (id == null) {
+            return false;
+        }
+
+        for (int i = 0; i < users.size(); i++) {
+            if (id.equals(users.get(i).getId())) {
+                users.remove(i);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void destroy() {
-        this.users = null;
+        users.clear();
+        nextId = 1;
     }
 
-    public Optional<User> findUserByUsername(String username) {
-        return this.users.stream()
-            .filter(user -> user.getUsername().equals(username))
-            .findFirst();
-    }
-
-    public User saveUser(User user) {
-        User newUser = new User();
-        newUser.setId(this.users.size() + 1);
-        newUser.setUsername(user.getUsername());
-        newUser.setName(user.getName());
-        newUser.setLastname(user.getLastname());
-        this.users.add(newUser);
-        return newUser;
-    }
 }

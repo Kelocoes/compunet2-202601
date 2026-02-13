@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.model.Games;
 import com.example.repository.GameRepository;
 import java.util.List;
 
@@ -18,10 +19,19 @@ public class GameService {
         this.gameRepository = gameRepository;
     }
 
-    public List<String> getGames() {
-        if (gameRepository == null) {
-            throw new IllegalStateException("GameRepository is not initialized");
-        }
-        return gameRepository.getGames();
+    public List<Games> findAll() {
+        return gameRepository.findAll();
+    }
+
+    public Games findById(Integer id) {
+        return gameRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Game not found with id: " + id));
+    }
+
+    public Games save(Games game) {
+        return gameRepository.save(game);
+    }
+
+    public boolean delete(Integer id) {
+        return gameRepository.delete(id);
     }
 }

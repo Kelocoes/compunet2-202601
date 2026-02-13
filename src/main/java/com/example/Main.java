@@ -15,14 +15,14 @@ public class Main {
         System.out.println(myFirstBean.getMensaje());
 
         GameService gameService = (GameService) context.getBean("GameService");
-        System.out.println("Available games: " + gameService.getGames());
+        System.out.println("Available games: " + gameService.findAll());
 
         GameService gameService1 = (GameService) context.getBean("GameService");
         
         System.out.println("Are gameService1 and gameService2 different instances? " + (gameService != gameService1));
 
         UserService userService = (UserService) context.getBean("UserService");
-        System.out.println("Users: " + userService.getUsers());
+        System.out.println("Users: " + userService.findAll());
 
         ((ClassPathXmlApplicationContext) context).close();
     }
