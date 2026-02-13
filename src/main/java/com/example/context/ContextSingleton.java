@@ -1,15 +1,18 @@
 package com.example.context;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.example.config.AppConfig;
 
 
 public class ContextSingleton {
     private static ContextSingleton instance;
-    private ApplicationContext context;
+    private ConfigurableApplicationContext context;
     
     private ContextSingleton() {
-        this.context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        this.context = new AnnotationConfigApplicationContext(AppConfig.class);
     }
     
     public static synchronized ContextSingleton getInstance() {
@@ -24,8 +27,8 @@ public class ContextSingleton {
     }
     
     public void closeContext() {
-        if (context instanceof ClassPathXmlApplicationContext) {
-            ((ClassPathXmlApplicationContext) context).close();
+        if (context instanceof ConfigurableApplicationContext) {
+            ((ConfigurableApplicationContext) context).close();
         }
     }
 }

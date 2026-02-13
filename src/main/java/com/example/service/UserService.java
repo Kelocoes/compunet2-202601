@@ -1,11 +1,17 @@
 package com.example.service;
 
 import java.util.List;
-import java.util.Optional;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.example.model.User;
-import com.example.repository.UserRepository;
+import com.example.repository.impl.UserRepository;
 
+// @Component
+@Service
+@Scope("singleton")
 public class UserService {
     
     private UserRepository userRepository;

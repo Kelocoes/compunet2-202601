@@ -1,18 +1,28 @@
-package com.example.repository;
+package com.example.repository.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import com.example.model.Games;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-public class GameRepository {
+import com.example.model.Games;
+import com.example.repository.IGameRepository;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
+// @Component
+@Repository
+public class GameRepository2 implements IGameRepository{
     
     private List<Games> games = new ArrayList<Games>();
     private int nextId = 1;
-    private Logger logger = Logger.getLogger(GameRepository.class.getName());
+    private Logger logger = Logger.getLogger(GameRepository2.class.getName());
 
+    @PostConstruct
     public void init() {
         logger.info("GameRepository initialized");
         logger.info("Connecting to the game database...");
@@ -77,6 +87,7 @@ public class GameRepository {
         return false;
     }
 
+    @PreDestroy
     public void destroy() {
         logger.info("GameRepository destroyed");
         logger.info("Disconnecting from the game database...");

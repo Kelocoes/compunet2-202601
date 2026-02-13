@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.springframework.context.ApplicationContext;
 
 import com.example.context.ContextSingleton;
-import com.example.model.Games;
 import com.example.model.User;
 import com.example.service.GameService;
 import com.example.service.UserService;
@@ -87,7 +86,6 @@ public class GamesServlet extends HttpServlet {
     }
 
     public void destroy() {
-        ContextSingleton.getInstance().closeContext();
         System.out.println("GamesServlet destroyed");
     }
 }
