@@ -1,17 +1,24 @@
-package com.example.repository;
+package com.example.repository.impl;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import com.example.model.User;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
+@Repository
 public class UserRepository {
     
     private List<User> users = new ArrayList<User>();
     private int nextId = 1;
 
+    @PostConstruct
     public void init() {
         save(new User("ana", "ana@example.com", "hash-ana", "Bio de Ana", new Timestamp(System.currentTimeMillis())));
         save(new User("carlos", "carlos@example.com", "hash-carlos", "Bio de Carlos", new Timestamp(System.currentTimeMillis())));
@@ -73,6 +80,7 @@ public class UserRepository {
         return false;
     }
 
+    @PreDestroy
     public void destroy() {
         users.clear();
         nextId = 1;

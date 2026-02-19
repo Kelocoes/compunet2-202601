@@ -1,23 +1,28 @@
 package com.example.service;
 
 import com.example.model.Games;
-import com.example.repository.GameRepository;
+import com.example.repository.IGameRepository;
+import com.example.repository.impl.GameRepository1;
+
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 public class GameService {
     
-    private GameRepository gameRepository;
+    private IGameRepository gameRepository;
 
-    // public GameService(GameRepository gameRepository) {
-    //     this.gameRepository = gameRepository;
-    // }
 
-    public GameService() {
-    }
-
-    public void setGameRepository(GameRepository gameRepository) {
+    public GameService(IGameRepository gameRepository) {
         this.gameRepository = gameRepository;
     }
+
+    // @Autowired
+    // public void setGameRepository(GameRepository gameRepository) {
+    //     this.gameRepository = gameRepository;
+    // }
 
     public List<Games> findAll() {
         return gameRepository.findAll();
