@@ -16109,3 +16109,54 @@ Unconditional classes:
 2026-03-07 14:55:40.642 DEBUG 25072 --- [demo] [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table if exists users cascade 
 2026-03-07 14:55:40.644  INFO 25072 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-03-07 14:55:40.646  INFO 25072 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-07 15:05:54.837  INFO 19524 --- [demo] [main] com.example.demo.DemoApplicationTests    : Starting DemoApplicationTests using Java 17.0.11 with PID 19524 (started by Kelocoes in F:\Universidad\Docencia ICESI\Computación en Internet 2\2026 01\compunet2-202601)
+2026-03-07 15:05:54.839  INFO 19524 --- [demo] [main] com.example.demo.DemoApplicationTests    : The following 1 profile is active: "test"
+2026-03-07 15:05:55.586  INFO 19524 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-07 15:05:55.685  INFO 19524 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 86 ms. Found 5 JPA repository interfaces.
+2026-03-07 15:05:56.216  INFO 19524 --- [demo] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-07 15:05:56.309  INFO 19524 --- [demo] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-07 15:05:57.143  INFO 19524 --- [demo] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-07 15:05:57.201  INFO 19524 --- [demo] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-07 15:05:57.556  INFO 19524 --- [demo] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:db-test user=SA
+2026-03-07 15:05:57.558  INFO 19524 --- [demo] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-07 15:05:57.638  INFO 19524 --- [demo] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:db-test]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: DB-TEST/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-07 15:05:59.134  INFO 19524 --- [demo] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-07 15:05:59.249  INFO 19524 --- [demo] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-07 15:05:59.343  INFO 19524 --- [demo] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-07 15:06:01.000  WARN 19524 --- [demo] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-07 15:06:01.460  INFO 19524 --- [demo] [main] o.s.b.h.a.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:db-test'
+2026-03-07 15:06:01.579  INFO 19524 --- [demo] [main] com.example.demo.DemoApplicationTests    : Started DemoApplicationTests in 7.184 seconds (process running for 9.043)
+2026-03-07 15:06:01.993  INFO 19524 --- [demo] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.demo.integration.UserIntegrationTest]: UserIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-03-07 15:06:02.011  INFO 19524 --- [demo] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.demo.DemoApplication for test class com.example.demo.integration.UserIntegrationTest
+2026-03-07 15:06:02.173  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Saving user: User(id=null, username=findalluser, email=findalluser@example.com, password_hash=hashedpassword, bio=null, createdAt=2023-01-01 00:00:00.0, birthdate=null, role=Role(id=1, name=Test Role, description=null))
+2026-03-07 15:06:02.178  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Fetching all users
+2026-03-07 15:06:02.293  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Saving user: User(id=null, username=newuser, email=newuser@example.com, password_hash=hashedpassword, bio=null, createdAt=2023-01-01 00:00:00.0, birthdate=null, role=Role(id=2, name=Test Role, description=null))
+2026-03-07 15:06:02.301  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Saving user: User(id=null, username=pageduser1, email=pageduser1@example.com, password_hash=hashedpassword, bio=null, createdAt=2023-01-01 00:00:00.0, birthdate=null, role=Role(id=3, name=Test Role, description=null))
+2026-03-07 15:06:02.305  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Saving user: User(id=null, username=pageduser2, email=pageduser2@example.com, password_hash=hashedpassword, bio=null, createdAt=2023-01-01 00:00:00.0, birthdate=null, role=Role(id=4, name=Test Role, description=null))
+2026-03-07 15:06:02.307  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Fetching users for page: 0 with size: 1
+2026-03-07 15:06:02.334  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Saving user: User(id=null, username=testuser, email=testuser@example.com, password_hash=hashedpassword, bio=null, createdAt=2023-01-01 00:00:00.0, birthdate=null, role=Role(id=5, name=Test Role, description=null))
+2026-03-07 15:06:02.336  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Fetching user with ID: 5
+2026-03-07 15:06:02.354  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Saving user: User(id=null, username=todelete, email=todelete@example.com, password_hash=hashedpassword, bio=null, createdAt=2023-01-01 00:00:00.0, birthdate=null, role=Role(id=6, name=Test Role, description=null))
+2026-03-07 15:06:02.356  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Deleting user with ID: 6
+2026-03-07 15:06:02.371  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Fetching user with ID: 6
+2026-03-07 15:06:02.814  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Fetching all users
+2026-03-07 15:06:02.853  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Saving user: User(id=null, username=testuser, email=testuser@example.com, password_hash=hashedpassword, bio=null, createdAt=2023-01-01 00:00:00.0, birthdate=null, role=Role(id=1, name=ADMIN, description=null))
+2026-03-07 15:06:02.861  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Fetching users for page: 0 with size: 1
+2026-03-07 15:06:02.868  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Fetching user with ID: 10
+2026-03-07 15:06:02.874  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Fetching user with ID: 10
+2026-03-07 15:06:02.883  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Deleting user with ID: 10
+2026-03-07 15:06:02.884  INFO 19524 --- [demo] [main] c.e.demo.service.impl.UserServiceImpl    : Fetching user with ID: 10
+2026-03-07 15:06:02.918  INFO 19524 --- [demo] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-07 15:06:03.138  INFO 19524 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-07 15:06:03.140  INFO 19524 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
