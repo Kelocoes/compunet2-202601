@@ -4,7 +4,16 @@
         <ul>
             <li><a th:href="@{/mvc/users}">Lista de Usuarios</a></li>
             <li><a th:href="@{/mvc/users/add}">Agregar Usuario</a></li>
+            <li>
+                <form
+                    th:action="@{/logout}"
+                    method="post"
+                    style="display: inline"
+                >
+                    <button type="submit">Logout</button>
+                </form>
+            </li>
         </ul>
     </nav>
-    <hr>
+    <hr />
 </header>

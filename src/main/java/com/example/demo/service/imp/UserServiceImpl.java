@@ -2,6 +2,7 @@ package com.example.demo.service.imp;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.User;
@@ -14,9 +15,11 @@ import jakarta.persistence.EntityNotFoundException;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -32,6 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
+        user.setPassword_hash(passwordEncoder.encode(user.getPassword_hash()));
         return userRepository.save(user);
     }
 
@@ -39,6 +43,7 @@ public class UserServiceImpl implements UserService {
     public User update(Long id, User user) {
         findById(id);
         user.setId(id);
+        user.setPassword_hash(passwordEncoder.encode(user.getPassword_hash()));
         return userRepository.save(user);
     }
 
@@ -46,5 +51,11 @@ public class UserServiceImpl implements UserService {
     public void deleteById(Long id) {
         User user = findById(id);
         userRepository.delete(user);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with username: " + username));
     }
 }
