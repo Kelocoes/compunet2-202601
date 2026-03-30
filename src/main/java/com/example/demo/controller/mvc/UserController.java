@@ -2,6 +2,7 @@ package com.example.demo.controller.mvc;
 
 import java.sql.Timestamp;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,7 @@ public class UserController {
     private final RoleService roleService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('view-user')")
     public String getAll(Model model) {
         model.addAttribute("users", userService.findAll());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -35,6 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/add")
+    @PreAuthorize("hasAuthority('create-user')")
     public String addUserForm(Model model) {
         User user = new User();
         model.addAttribute("user", user);
