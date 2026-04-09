@@ -31,9 +31,9 @@ INSERT INTO role_permission (role_id, permission_id) VALUES
 
 -- Insert users
 INSERT INTO users (username, email, password_hash, bio, created_at, role_id, birthdate) VALUES 
-('admin', 'admin@example.com', 'hashed_password_1', 'Administrator account', CURRENT_TIMESTAMP, 1, '1980-01-01'),
-('user1', 'user1@example.com', 'hashed_password_2', 'Standard user account', CURRENT_TIMESTAMP, 2, '1990-02-15'),
-('user2', 'user2@example.com', 'hashed_password_3', 'Standard user account', CURRENT_TIMESTAMP, 2, '1992-03-20'),
+('admin', 'admin@example.com', '$2y$10$6o5vS5YmB6/txDbxtABg8OlTI2XTrdzGdwwsOt4EgVRsJujeef6CC', 'Administrator account', CURRENT_TIMESTAMP, 1, '1980-01-01'),
+('user1', 'user1@example.com', '$2y$10$6o5vS5YmB6/txDbxtABg8OlTI2XTrdzGdwwsOt4EgVRsJujeef6CC', 'Standard user account', CURRENT_TIMESTAMP, 2, '1990-02-15'),
+('user2', 'user2@example.com', '$2y$10$6o5vS5YmB6/txDbxtABg8OlTI2XTrdzGdwwsOt4EgVRsJujeef6CC', 'Standard user account', CURRENT_TIMESTAMP, 2, '1992-03-20'),
 ('user3', 'user3@example.com', 'hashed_password_4', 'Standard user account', CURRENT_TIMESTAMP, 2, '1985-04-10'),
 ('user4', 'user4@example.com', 'hashed_password_5', 'Standard user account', CURRENT_TIMESTAMP, 2, '1993-05-25'),
 ('user5', 'user5@example.com', 'hashed_password_6', 'Standard user account', CURRENT_TIMESTAMP, 2, '1991-06-30'),

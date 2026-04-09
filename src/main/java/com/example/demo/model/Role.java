@@ -51,8 +51,8 @@ public class Role {
     //     inverseJoinColumns = @JoinColumn(name = "permission_id") // Foreign key for Permission
     // )
     // private List<Permission> permissions;
-
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ToString.Exclude
     @JsonIgnore
     private List<RolePermission> rolePermissions;
