@@ -15,8 +15,10 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.example.demo.security.CustomUserDetailsService;
+import com.example.demo.security.filters.CustomSecurityFilter;
 
 @Configuration
 @EnableWebSecurity(debug = true)
@@ -34,10 +36,16 @@ public class AppConfig {
     }
 
     @Bean
+    public CustomSecurityFilter customSecurityFilter() {
+        return new CustomSecurityFilter();
+    }
+
+    @Bean
     @Order(1)
     public SecurityFilterChain mySecurityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .securityMatcher("/login/**", "/mvc/**", "/h2-console/**")
+                .addFilterAt(customSecurityFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/mvc/auth/login/**", "/mvc/public/**", "/h2-console/**", "/css/**")
                         .permitAll()
@@ -56,6 +64,7 @@ public class AppConfig {
     @Order(2)
     public SecurityFilterChain mySecurityFilterChain2(HttpSecurity http) throws Exception {
         return http.securityMatcher("/api/**").build();
+        //TODO JWT
     }
 
 }
