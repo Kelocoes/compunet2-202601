@@ -92,4 +92,15 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated())
                 .build();
     }
+
+    @Bean
+    @Order(3)
+    public SecurityFilterChain restSecurityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .securityMatcher("/rest/**")
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authz -> authz
+                        .anyRequest().permitAll())
+                .build();
+    }
 }

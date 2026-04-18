@@ -8,11 +8,13 @@ public interface CommentService {
 
     List<Comment> findAll();
 
+    List<Comment> findByGameId(Long gameId);
+
     Comment findById(Long id);
 
-    Comment save(Comment comment);
+    Comment save(Comment comment, Long userId, Long gameId);
 
-    Comment update(Long id, Comment comment);
+    Comment update(Long id, Comment comment, Long userId, Long gameId);
 
     void deleteById(Long id);
 }

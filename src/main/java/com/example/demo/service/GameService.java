@@ -8,11 +8,13 @@ public interface GameService {
 
     List<Game> findAll();
 
+    List<Game> findByUserId(Long userId);
+
     Game findById(Long id);
 
-    Game save(Game game);
+    Game save(Game game, Long userId);
 
-    Game update(Long id, Game game);
+    Game update(Long id, Game game, Long userId);
 
     void deleteById(Long id);
 }

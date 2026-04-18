@@ -1,0 +1,141 @@
+{
+    "info": {
+        "_postman_id": "38e4d32f-6ef4-46a8-b09f-b1f934c9a611",
+        "name": "CompuNet2 REST Game Comment",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Games - Get All",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:8081/compunet2-2026/rest/games"
+            }
+        },
+        {
+            "name": "Games - Get By Id",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:8081/compunet2-2026/rest/games/1"
+            }
+        },
+        {
+            "name": "Games - Get By User",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:8081/compunet2-2026/rest/games/user/2"
+            }
+        },
+        {
+            "name": "Games - Create",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"name\": \"Terraforming Mars\",\n  \"description\": \"Juego de estrategia espacial\",\n  \"minPlayers\": 1,\n  \"maxPlayers\": 5,\n  \"category\": \"Strategy\",\n  \"userId\": 2\n}"
+                },
+                "url": "http://localhost:8081/compunet2-2026/rest/games"
+            }
+        },
+        {
+            "name": "Games - Update",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"name\": \"Terraforming Mars Updated\",\n  \"description\": \"Juego de estrategia espacial actualizado\",\n  \"minPlayers\": 1,\n  \"maxPlayers\": 5,\n  \"category\": \"Strategy\",\n  \"userId\": 2\n}"
+                },
+                "url": "http://localhost:8081/compunet2-2026/rest/games/1"
+            }
+        },
+        {
+            "name": "Games - Delete",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:8081/compunet2-2026/rest/games/1"
+            }
+        },
+        {
+            "name": "Comments - Get All",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:8081/compunet2-2026/rest/comments"
+            }
+        },
+        {
+            "name": "Comments - Get By Id",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:8081/compunet2-2026/rest/comments/1"
+            }
+        },
+        {
+            "name": "Comments - Get By Game",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:8081/compunet2-2026/rest/comments/game/1"
+            }
+        },
+        {
+            "name": "Comments - Create",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"content\": \"Excelente juego para la clase\",\n  \"userId\": 2,\n  \"gameId\": 1\n}"
+                },
+                "url": "http://localhost:8081/compunet2-2026/rest/comments"
+            }
+        },
+        {
+            "name": "Comments - Update",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"content\": \"Comentario actualizado desde Postman\",\n  \"userId\": 2,\n  \"gameId\": 1\n}"
+                },
+                "url": "http://localhost:8081/compunet2-2026/rest/comments/1"
+            }
+        },
+        {
+            "name": "Comments - Delete",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:8081/compunet2-2026/rest/comments/1"
+            }
+        }
+    ]
+}
