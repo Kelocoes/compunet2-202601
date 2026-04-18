@@ -6,6 +6,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.example.demo.security.CustomUserDetailsService;
 import com.example.demo.security.filters.ExampleFilter;
+import com.example.demo.security.filters.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity(debug = false)
@@ -47,6 +49,11 @@ public class WebSecurityConfig {
     public PasswordEncoder passwordEncoder() {
         // return NoOpPasswordEncoder.getInstance();
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter();
     }
 
     @Bean
@@ -99,8 +106,11 @@ public class WebSecurityConfig {
         return http
                 .securityMatcher("/rest/**")
                 .csrf(csrf -> csrf.disable())
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authz -> authz
-                        .anyRequest().permitAll())
+                        .requestMatchers("/rest/public/**").permitAll()
+                        .anyRequest().authenticated())
+                .sessionManagement(t -> t.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // No tener sesiones, stateful
                 .build();
     }
 }

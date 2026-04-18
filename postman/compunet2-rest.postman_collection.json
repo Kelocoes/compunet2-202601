@@ -6,10 +6,32 @@
     },
     "item": [
         {
+            "name": "Auth - Login",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"123456\"\n}"
+                },
+                "url": "http://localhost:8081/compunet2-2026/rest/public/auth/login"
+            }
+        },
+        {
             "name": "Games - Get All",
             "request": {
                 "method": "GET",
-                "header": [],
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer PEGA_AQUI_EL_ACCESS_TOKEN"
+                    }
+                ],
                 "url": "http://localhost:8081/compunet2-2026/rest/games"
             }
         },
@@ -17,7 +39,12 @@
             "name": "Games - Get By Id",
             "request": {
                 "method": "GET",
-                "header": [],
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer PEGA_AQUI_EL_ACCESS_TOKEN"
+                    }
+                ],
                 "url": "http://localhost:8081/compunet2-2026/rest/games/1"
             }
         },
@@ -25,7 +52,12 @@
             "name": "Games - Get By User",
             "request": {
                 "method": "GET",
-                "header": [],
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer PEGA_AQUI_EL_ACCESS_TOKEN"
+                    }
+                ],
                 "url": "http://localhost:8081/compunet2-2026/rest/games/user/2"
             }
         },
@@ -34,6 +66,10 @@
             "request": {
                 "method": "POST",
                 "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer PEGA_AQUI_EL_ACCESS_TOKEN"
+                    },
                     {
                         "key": "Content-Type",
                         "value": "application/json"
@@ -52,6 +88,10 @@
                 "method": "PUT",
                 "header": [
                     {
+                        "key": "Authorization",
+                        "value": "Bearer PEGA_AQUI_EL_ACCESS_TOKEN"
+                    },
+                    {
                         "key": "Content-Type",
                         "value": "application/json"
                     }
@@ -67,7 +107,12 @@
             "name": "Games - Delete",
             "request": {
                 "method": "DELETE",
-                "header": [],
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer PEGA_AQUI_EL_ACCESS_TOKEN"
+                    }
+                ],
                 "url": "http://localhost:8081/compunet2-2026/rest/games/1"
             }
         },
@@ -75,7 +120,12 @@
             "name": "Comments - Get All",
             "request": {
                 "method": "GET",
-                "header": [],
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer PEGA_AQUI_EL_ACCESS_TOKEN"
+                    }
+                ],
                 "url": "http://localhost:8081/compunet2-2026/rest/comments"
             }
         },
@@ -83,7 +133,12 @@
             "name": "Comments - Get By Id",
             "request": {
                 "method": "GET",
-                "header": [],
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer PEGA_AQUI_EL_ACCESS_TOKEN"
+                    }
+                ],
                 "url": "http://localhost:8081/compunet2-2026/rest/comments/1"
             }
         },
@@ -91,7 +146,12 @@
             "name": "Comments - Get By Game",
             "request": {
                 "method": "GET",
-                "header": [],
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer PEGA_AQUI_EL_ACCESS_TOKEN"
+                    }
+                ],
                 "url": "http://localhost:8081/compunet2-2026/rest/comments/game/1"
             }
         },
@@ -100,6 +160,10 @@
             "request": {
                 "method": "POST",
                 "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer PEGA_AQUI_EL_ACCESS_TOKEN"
+                    },
                     {
                         "key": "Content-Type",
                         "value": "application/json"
@@ -118,6 +182,10 @@
                 "method": "PUT",
                 "header": [
                     {
+                        "key": "Authorization",
+                        "value": "Bearer PEGA_AQUI_EL_ACCESS_TOKEN"
+                    },
+                    {
                         "key": "Content-Type",
                         "value": "application/json"
                     }
@@ -133,7 +201,12 @@
             "name": "Comments - Delete",
             "request": {
                 "method": "DELETE",
-                "header": [],
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer PEGA_AQUI_EL_ACCESS_TOKEN"
+                    }
+                ],
                 "url": "http://localhost:8081/compunet2-2026/rest/comments/1"
             }
         }
