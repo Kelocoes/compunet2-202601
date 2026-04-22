@@ -57,7 +57,7 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/mvc/public/**", "/h2-console/**").permitAll()
+                        .requestMatchers("/","/mvc/public/**", "/h2-console/**").permitAll()
                         .requestMatchers("/mvc/auth/login", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
@@ -89,6 +89,18 @@ public class WebSecurityConfig {
                 .addFilterBefore(exampleFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/example/public/**").permitAll()
+                        .anyRequest().authenticated())
+                .build();
+    }
+
+    @Bean
+    @Order(3)
+    public SecurityFilterChain restSecurityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .securityMatcher("/rest/**")
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authz -> authz
+                        .requestMatchers("/rest/public/**").permitAll()
                         .anyRequest().authenticated())
                 .build();
     }
