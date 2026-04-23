@@ -57,7 +57,7 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/","/mvc/public/**", "/h2-console/**").permitAll()
+                        .requestMatchers("/", "/mvc/public/**", "/h2-console/**").permitAll()
                         .requestMatchers("/mvc/auth/login", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
@@ -100,7 +100,7 @@ public class WebSecurityConfig {
                 .securityMatcher("/rest/**")
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/rest/public/**").permitAll()
+                        .requestMatchers("/rest/public/**", "/rest/auth/login").permitAll()
                         .anyRequest().authenticated())
                 .build();
     }
