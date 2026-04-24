@@ -4,9 +4,66 @@
         "name": "CompuNet2 REST Game Comment",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
+    "variable": [
+        {
+            "key": "access_token",
+            "value": ""
+        },
+        {
+            "key": "user_id",
+            "value": "1"
+        },
+        {
+            "key": "game_id",
+            "value": "1"
+        },
+        {
+            "key": "random_game_name",
+            "value": ""
+        }
+    ],
     "item": [
         {
             "name": "Auth - Login",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.request.headers.remove('Authorization');"
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('El status code es 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "pm.test('El cuerpo es JSON valido', function () {",
+                            "    const contentType = pm.response.headers.get('Content-Type') || '';",
+                            "    pm.expect(contentType.toLowerCase()).to.include('application/json');",
+                            "    pm.expect(function () {",
+                            "        pm.response.json();",
+                            "    }).to.not.throw();",
+                            "});",
+                            "",
+                            "const loginResponse = pm.response.json();",
+                            "const accessToken = loginResponse.accessToken || loginResponse.token || loginResponse.jwt || loginResponse.access_token;",
+                            "if (accessToken) {",
+                            "    pm.collectionVariables.set('access_token', accessToken);",
+                            "    console.log('Access token guardado en variable de coleccion: access_token');",
+                            "} else {",
+                            "    console.warn('No se encontro access token en la respuesta de login');",
+                            "}"
+                        ]
+                    }
+                }
+            ],
             "request": {
                 "method": "POST",
                 "header": [
@@ -24,6 +81,39 @@
         },
         {
             "name": "Games - Get All",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "const accessToken = pm.collectionVariables.get('access_token');",
+                            "if (accessToken) {",
+                            "    pm.request.headers.upsert({ key: 'Authorization', value: `Bearer ${accessToken}` });",
+                            "}"
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('El status code es 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "pm.test('El cuerpo es JSON valido', function () {",
+                            "    const contentType = pm.response.headers.get('Content-Type') || '';",
+                            "    pm.expect(contentType.toLowerCase()).to.include('application/json');",
+                            "    pm.expect(function () {",
+                            "        pm.response.json();",
+                            "    }).to.not.throw();",
+                            "});"
+                        ]
+                    }
+                }
+            ],
             "request": {
                 "method": "GET",
                 "header": [
@@ -37,6 +127,39 @@
         },
         {
             "name": "Games - Get By Id",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "const accessToken = pm.collectionVariables.get('access_token');",
+                            "if (accessToken) {",
+                            "    pm.request.headers.upsert({ key: 'Authorization', value: `Bearer ${accessToken}` });",
+                            "}"
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('El status code es 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "pm.test('El cuerpo es JSON valido', function () {",
+                            "    const contentType = pm.response.headers.get('Content-Type') || '';",
+                            "    pm.expect(contentType.toLowerCase()).to.include('application/json');",
+                            "    pm.expect(function () {",
+                            "        pm.response.json();",
+                            "    }).to.not.throw();",
+                            "});"
+                        ]
+                    }
+                }
+            ],
             "request": {
                 "method": "GET",
                 "header": [
@@ -50,6 +173,42 @@
         },
         {
             "name": "Games - Get By User",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "const randomUserId = Math.floor(Math.random() * 20) + 1;",
+                            "pm.collectionVariables.set('user_id', randomUserId);",
+                            "",
+                            "const accessToken = pm.collectionVariables.get('access_token');",
+                            "if (accessToken) {",
+                            "    pm.request.headers.upsert({ key: 'Authorization', value: `Bearer ${accessToken}` });",
+                            "}"
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('El status code es 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "pm.test('El cuerpo es JSON valido', function () {",
+                            "    const contentType = pm.response.headers.get('Content-Type') || '';",
+                            "    pm.expect(contentType.toLowerCase()).to.include('application/json');",
+                            "    pm.expect(function () {",
+                            "        pm.response.json();",
+                            "    }).to.not.throw();",
+                            "});"
+                        ]
+                    }
+                }
+            ],
             "request": {
                 "method": "GET",
                 "header": [
@@ -58,11 +217,59 @@
                         "value": "Bearer PEGA_AQUI_EL_ACCESS_TOKEN"
                     }
                 ],
-                "url": "http://localhost:8081/compunet2-2026/rest/games/user/2"
+                "url": "http://localhost:8081/compunet2-2026/rest/games/user/{{user_id}}"
             }
         },
         {
             "name": "Games - Create",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "const randomUserId = Math.floor(Math.random() * 20) + 1;",
+                            "const randomGameName = `Catan ${Math.floor(Math.random() * 1000)}`;",
+                            "pm.collectionVariables.set('user_id', randomUserId);",
+                            "pm.collectionVariables.set('random_game_name', randomGameName);",
+                            "",
+                            "const payload = {",
+                            "    name: randomGameName,",
+                            "    description: 'Juego de estrategia espacial',",
+                            "    minPlayers: 1,",
+                            "    maxPlayers: 5,",
+                            "    category: 'Strategy',",
+                            "    userId: randomUserId",
+                            "};",
+                            "pm.request.body.update(JSON.stringify(payload, null, 2));",
+                            "",
+                            "const accessToken = pm.collectionVariables.get('access_token');",
+                            "if (accessToken) {",
+                            "    pm.request.headers.upsert({ key: 'Authorization', value: `Bearer ${accessToken}` });",
+                            "}"
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('El status code es 201', function () {",
+                            "    pm.response.to.have.status(201);",
+                            "});",
+                            "",
+                            "pm.test('El cuerpo es JSON valido', function () {",
+                            "    const contentType = pm.response.headers.get('Content-Type') || '';",
+                            "    pm.expect(contentType.toLowerCase()).to.include('application/json');",
+                            "    pm.expect(function () {",
+                            "        pm.response.json();",
+                            "    }).to.not.throw();",
+                            "});"
+                        ]
+                    }
+                }
+            ],
             "request": {
                 "method": "POST",
                 "header": [
@@ -77,13 +284,61 @@
                 ],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\n  \"name\": \"Terraforming Mars\",\n  \"description\": \"Juego de estrategia espacial\",\n  \"minPlayers\": 1,\n  \"maxPlayers\": 5,\n  \"category\": \"Strategy\",\n  \"userId\": 2\n}"
+                    "raw": "{\n  \"name\": \"Catan 45\",\n  \"description\": \"Juego de estrategia espacial\",\n  \"minPlayers\": 1,\n  \"maxPlayers\": 5,\n  \"category\": \"Strategy\",\n  \"userId\": 2\n}"
                 },
                 "url": "http://localhost:8081/compunet2-2026/rest/games"
             }
         },
         {
             "name": "Games - Update",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "const randomUserId = Math.floor(Math.random() * 20) + 1;",
+                            "const randomGameName = `Catan ${Math.floor(Math.random() * 1000)}`;",
+                            "pm.collectionVariables.set('user_id', randomUserId);",
+                            "pm.collectionVariables.set('random_game_name', randomGameName);",
+                            "",
+                            "const payload = {",
+                            "    name: `${randomGameName} Updated`,",
+                            "    description: 'Juego de estrategia espacial actualizado',",
+                            "    minPlayers: 1,",
+                            "    maxPlayers: 5,",
+                            "    category: 'Strategy',",
+                            "    userId: randomUserId",
+                            "};",
+                            "pm.request.body.update(JSON.stringify(payload, null, 2));",
+                            "",
+                            "const accessToken = pm.collectionVariables.get('access_token');",
+                            "if (accessToken) {",
+                            "    pm.request.headers.upsert({ key: 'Authorization', value: `Bearer ${accessToken}` });",
+                            "}"
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('El status code es 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "pm.test('El cuerpo es JSON valido', function () {",
+                            "    const contentType = pm.response.headers.get('Content-Type') || '';",
+                            "    pm.expect(contentType.toLowerCase()).to.include('application/json');",
+                            "    pm.expect(function () {",
+                            "        pm.response.json();",
+                            "    }).to.not.throw();",
+                            "});"
+                        ]
+                    }
+                }
+            ],
             "request": {
                 "method": "PUT",
                 "header": [
@@ -105,6 +360,36 @@
         },
         {
             "name": "Games - Delete",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "const accessToken = pm.collectionVariables.get('access_token');",
+                            "if (accessToken) {",
+                            "    pm.request.headers.upsert({ key: 'Authorization', value: `Bearer ${accessToken}` });",
+                            "}"
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('El status code es 204', function () {",
+                            "    pm.response.to.have.status(204);",
+                            "});",
+                            "",
+                            "pm.test('El cuerpo es JSON o vacio por 204', function () {",
+                            "    const responseBody = pm.response.text();",
+                            "    pm.expect(responseBody === '' || responseBody === 'null').to.eql(true);",
+                            "});"
+                        ]
+                    }
+                }
+            ],
             "request": {
                 "method": "DELETE",
                 "header": [
@@ -118,6 +403,39 @@
         },
         {
             "name": "Comments - Get All",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "const accessToken = pm.collectionVariables.get('access_token');",
+                            "if (accessToken) {",
+                            "    pm.request.headers.upsert({ key: 'Authorization', value: `Bearer ${accessToken}` });",
+                            "}"
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('El status code es 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "pm.test('El cuerpo es JSON valido', function () {",
+                            "    const contentType = pm.response.headers.get('Content-Type') || '';",
+                            "    pm.expect(contentType.toLowerCase()).to.include('application/json');",
+                            "    pm.expect(function () {",
+                            "        pm.response.json();",
+                            "    }).to.not.throw();",
+                            "});"
+                        ]
+                    }
+                }
+            ],
             "request": {
                 "method": "GET",
                 "header": [
@@ -131,6 +449,39 @@
         },
         {
             "name": "Comments - Get By Id",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "const accessToken = pm.collectionVariables.get('access_token');",
+                            "if (accessToken) {",
+                            "    pm.request.headers.upsert({ key: 'Authorization', value: `Bearer ${accessToken}` });",
+                            "}"
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('El status code es 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "pm.test('El cuerpo es JSON valido', function () {",
+                            "    const contentType = pm.response.headers.get('Content-Type') || '';",
+                            "    pm.expect(contentType.toLowerCase()).to.include('application/json');",
+                            "    pm.expect(function () {",
+                            "        pm.response.json();",
+                            "    }).to.not.throw();",
+                            "});"
+                        ]
+                    }
+                }
+            ],
             "request": {
                 "method": "GET",
                 "header": [
@@ -144,6 +495,39 @@
         },
         {
             "name": "Comments - Get By Game",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "const accessToken = pm.collectionVariables.get('access_token');",
+                            "if (accessToken) {",
+                            "    pm.request.headers.upsert({ key: 'Authorization', value: `Bearer ${accessToken}` });",
+                            "}"
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('El status code es 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "pm.test('El cuerpo es JSON valido', function () {",
+                            "    const contentType = pm.response.headers.get('Content-Type') || '';",
+                            "    pm.expect(contentType.toLowerCase()).to.include('application/json');",
+                            "    pm.expect(function () {",
+                            "        pm.response.json();",
+                            "    }).to.not.throw();",
+                            "});"
+                        ]
+                    }
+                }
+            ],
             "request": {
                 "method": "GET",
                 "header": [
@@ -157,6 +541,39 @@
         },
         {
             "name": "Comments - Create",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "const accessToken = pm.collectionVariables.get('access_token');",
+                            "if (accessToken) {",
+                            "    pm.request.headers.upsert({ key: 'Authorization', value: `Bearer ${accessToken}` });",
+                            "}"
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('El status code es 201', function () {",
+                            "    pm.response.to.have.status(201);",
+                            "});",
+                            "",
+                            "pm.test('El cuerpo es JSON valido', function () {",
+                            "    const contentType = pm.response.headers.get('Content-Type') || '';",
+                            "    pm.expect(contentType.toLowerCase()).to.include('application/json');",
+                            "    pm.expect(function () {",
+                            "        pm.response.json();",
+                            "    }).to.not.throw();",
+                            "});"
+                        ]
+                    }
+                }
+            ],
             "request": {
                 "method": "POST",
                 "header": [
@@ -178,6 +595,39 @@
         },
         {
             "name": "Comments - Update",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "const accessToken = pm.collectionVariables.get('access_token');",
+                            "if (accessToken) {",
+                            "    pm.request.headers.upsert({ key: 'Authorization', value: `Bearer ${accessToken}` });",
+                            "}"
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('El status code es 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "pm.test('El cuerpo es JSON valido', function () {",
+                            "    const contentType = pm.response.headers.get('Content-Type') || '';",
+                            "    pm.expect(contentType.toLowerCase()).to.include('application/json');",
+                            "    pm.expect(function () {",
+                            "        pm.response.json();",
+                            "    }).to.not.throw();",
+                            "});"
+                        ]
+                    }
+                }
+            ],
             "request": {
                 "method": "PUT",
                 "header": [
@@ -199,6 +649,36 @@
         },
         {
             "name": "Comments - Delete",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "const accessToken = pm.collectionVariables.get('access_token');",
+                            "if (accessToken) {",
+                            "    pm.request.headers.upsert({ key: 'Authorization', value: `Bearer ${accessToken}` });",
+                            "}"
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                            "pm.test('El status code es 204', function () {",
+                            "    pm.response.to.have.status(204);",
+                            "});",
+                            "",
+                            "pm.test('El cuerpo es JSON o vacio por 204', function () {",
+                            "    const responseBody = pm.response.text();",
+                            "    pm.expect(responseBody === '' || responseBody === 'null').to.eql(true);",
+                            "});"
+                        ]
+                    }
+                }
+            ],
             "request": {
                 "method": "DELETE",
                 "header": [
