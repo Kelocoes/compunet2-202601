@@ -1,6 +1,5 @@
 package com.example.demo.controller.rest;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.controller.rest.dto.CommentRequest;
 import com.example.demo.controller.rest.dto.CommentResponse;
+import com.example.demo.mappers.ICommentMapper;
 import com.example.demo.model.Comment;
 import com.example.demo.service.CommentService;
 
@@ -29,14 +29,12 @@ import lombok.RequiredArgsConstructor;
 public class CommentRestController {
 
     private final CommentService commentService;
+    private final ICommentMapper commentMapper;
 
     // @GetMapping atiende peticiones GET para consultar multiples recursos.
     @GetMapping
     public ResponseEntity<List<CommentResponse>> getAllComments() {
-        List<CommentResponse> response = commentService.findAll()
-                .stream()
-                .map(CommentResponse::fromEntity)
-                .toList();
+        List<CommentResponse> response = commentMapper.commentsToCommentResponses(commentService.findAll());
 
         // HttpStatus.OK representa 200 para respuesta correcta en lecturas.
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -48,7 +46,7 @@ public class CommentRestController {
             // @PathVariable captura el id ubicado en la URL /rest/comments/{id}.
             @PathVariable Long id) {
         Comment comment = commentService.findById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(CommentResponse.fromEntity(comment));
+        return ResponseEntity.status(HttpStatus.OK).body(commentMapper.commentToCommentResponse(comment));
     }
 
     // Endpoint REST para consultar comentarios de un juego especifico.
@@ -56,10 +54,7 @@ public class CommentRestController {
     public ResponseEntity<List<CommentResponse>> getCommentsByGame(
             // @PathVariable toma gameId desde la URL /rest/comments/game/{gameId}.
             @PathVariable Long gameId) {
-        List<CommentResponse> response = commentService.findByGameId(gameId)
-                .stream()
-                .map(CommentResponse::fromEntity)
-                .toList();
+        List<CommentResponse> response = commentMapper.commentsToCommentResponses(commentService.findByGameId(gameId));
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -69,14 +64,12 @@ public class CommentRestController {
     public ResponseEntity<CommentResponse> createComment(
             // @RequestBody transforma el JSON de entrada en un DTO Java.
             @RequestBody CommentRequest request) {
-        Comment comment = new Comment();
-        comment.setContent(request.getContent());
-        comment.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        Comment comment = commentMapper.commentRequestToComment(request);
 
         Comment created = commentService.save(comment, request.getUserId(), request.getGameId());
 
         // HttpStatus.CREATED representa 201 para creacion exitosa.
-        return ResponseEntity.status(HttpStatus.CREATED).body(CommentResponse.fromEntity(created));
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentMapper.commentToCommentResponse(created));
     }
 
     // @PutMapping atiende peticiones PUT para reemplazar/actualizar un comentario
@@ -89,12 +82,11 @@ public class CommentRestController {
             @RequestBody CommentRequest request) {
         Comment existing = commentService.findById(id);
 
-        Comment comment = new Comment();
-        comment.setContent(request.getContent());
+        Comment comment = commentMapper.commentRequestToCommentForUpdate(request);
         comment.setCreatedAt(existing.getCreatedAt());
 
         Comment updated = commentService.update(id, comment, request.getUserId(), request.getGameId());
-        return ResponseEntity.status(HttpStatus.OK).body(CommentResponse.fromEntity(updated));
+        return ResponseEntity.status(HttpStatus.OK).body(commentMapper.commentToCommentResponse(updated));
     }
 
     // @DeleteMapping atiende peticiones DELETE para eliminar un comentario por id.

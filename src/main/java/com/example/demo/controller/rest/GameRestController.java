@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.controller.rest.dto.GameRequest;
 import com.example.demo.controller.rest.dto.GameResponse;
+import com.example.demo.mappers.IGameMapper;
 import com.example.demo.model.Game;
 import com.example.demo.service.GameService;
 
@@ -29,15 +30,13 @@ import lombok.RequiredArgsConstructor;
 public class GameRestController {
 
     private final GameService gameService;
+    private final IGameMapper gameMapper;
 
     // @GetMapping mapea peticiones HTTP GET para obtener colecciones de recursos.
     @GetMapping
     public ResponseEntity<List<GameResponse>> getAllGames() {
         // ResponseEntity permite retornar cuerpo + codigo HTTP de forma explicita.
-        List<GameResponse> response = gameService.findAll()
-                .stream()
-                .map(GameResponse::fromEntity)
-                .toList();
+        List<GameResponse> response = gameMapper.gamesToGameResponses(gameService.findAll());
 
         // HttpStatus.OK corresponde al codigo 200 (consulta exitosa).
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -49,7 +48,7 @@ public class GameRestController {
             // @PathVariable toma el valor de {id} desde la URL y lo asigna al parametro.
             @PathVariable Long id) {
         Game game = gameService.findById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(GameResponse.fromEntity(game));
+        return ResponseEntity.status(HttpStatus.OK).body(gameMapper.gameToGameResponse(game));
     }
 
     // Endpoint REST para consultar juegos por usuario usando una sub-ruta
@@ -58,10 +57,7 @@ public class GameRestController {
     public ResponseEntity<List<GameResponse>> getGamesByUser(
             // @PathVariable toma el userId desde la URL /rest/games/user/{userId}.
             @PathVariable Long userId) {
-        List<GameResponse> response = gameService.findByUserId(userId)
-                .stream()
-                .map(GameResponse::fromEntity)
-                .toList();
+        List<GameResponse> response = gameMapper.gamesToGameResponses(gameService.findByUserId(userId));
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -71,17 +67,12 @@ public class GameRestController {
     public ResponseEntity<GameResponse> createGame(
             // @RequestBody convierte el JSON del request en un objeto Java (GameRequest).
             @RequestBody GameRequest request) {
-        Game game = new Game();
-        game.setName(request.getName());
-        game.setDescription(request.getDescription());
-        game.setMinPlayers(request.getMinPlayers());
-        game.setMaxPlayers(request.getMaxPlayers());
-        game.setCategory(request.getCategory());
+        Game game = gameMapper.gameRequestToGame(request);
 
         Game created = gameService.save(game, request.getUserId());
 
         // HttpStatus.CREATED corresponde al codigo 201 cuando se crea un recurso.
-        return ResponseEntity.status(HttpStatus.CREATED).body(GameResponse.fromEntity(created));
+        return ResponseEntity.status(HttpStatus.CREATED).body(gameMapper.gameToGameResponse(created));
     }
 
     // @PutMapping mapea peticiones HTTP PUT para actualizar recursos existentes.
@@ -91,15 +82,10 @@ public class GameRestController {
             @PathVariable Long id,
             // @RequestBody trae los nuevos datos del recurso en formato JSON.
             @RequestBody GameRequest request) {
-        Game game = new Game();
-        game.setName(request.getName());
-        game.setDescription(request.getDescription());
-        game.setMinPlayers(request.getMinPlayers());
-        game.setMaxPlayers(request.getMaxPlayers());
-        game.setCategory(request.getCategory());
+        Game game = gameMapper.gameRequestToGame(request);
 
         Game updated = gameService.update(id, game, request.getUserId());
-        return ResponseEntity.status(HttpStatus.OK).body(GameResponse.fromEntity(updated));
+        return ResponseEntity.status(HttpStatus.OK).body(gameMapper.gameToGameResponse(updated));
     }
 
     // @DeleteMapping mapea peticiones HTTP DELETE para eliminar recursos.
