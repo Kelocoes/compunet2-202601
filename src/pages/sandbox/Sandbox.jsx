@@ -9,6 +9,10 @@ import {
     Typography,
 } from '@mui/material'
 import CustomButton from '../../components/CustomButton'
+import Carrousel from './components/Carrousel'
+import List from './components/List'
+import PackingList from './components/PackingList'
+import Timer from './components/Timer'
 
 function Sandbox() {
     const [count, setCount] = useState(0)
@@ -22,7 +26,7 @@ function Sandbox() {
 
     return (
         <Box sx={{ minHeight: '100vh', display: 'grid', placeItems: 'center', px: 2 }}>
-            <Container maxWidth="sm">
+            <Container maxWidth="lg">
                 <Paper elevation={3} sx={{ p: { xs: 3, md: 4 } }}>
                     <Stack spacing={3}>
                         <Box>
@@ -64,6 +68,12 @@ function Sandbox() {
                                 color="#4ade80"
                                 handleClick={() => alert('¡Hola desde el botón personalizado!')}
                             />
+                        </Box>
+                        <Box>
+                            <Carrousel />
+                            <List />
+                            <PackingList />
+                            <Timer />
                         </Box>
                     </Stack>
                 </Paper>
