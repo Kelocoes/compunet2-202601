@@ -8,17 +8,27 @@ import {
     TextField,
     Typography,
 } from '@mui/material'
+import authService from '../../services/auth/auth.service'
+import { useNavigate } from 'react-router'
 
 function SignIn() {
     const formRef = useRef(null)
+    const nav = useNavigate()
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
         const formData = new FormData(formRef.current)
         const username = formData.get('username') ?? ''
         const password = formData.get('password') ?? ''
 
-        console.log({ username, password })
+        const result = await authService.login({ username, password })
+        if (result.error) {
+            alert('Login failed: ' + result.message)
+        } else {
+            alert('Login successful!')
+            localStorage.setItem('token', result.data.accessToken)
+            nav('/dashboard') // Redirigir al usuario a la página de dashboard
+        }
     }
 
     return (
