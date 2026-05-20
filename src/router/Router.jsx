@@ -1,18 +1,20 @@
 import { createBrowserRouter } from "react-router";
-import ProfileCard from "../components/ProfileCard";
+import Login from "../pages/Login/Login";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import Landing from "../pages/Landing/Landing";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <h1>Pagina principal</h1>,
+        element: <Landing />,
     },
     {
         path: "/login",
-        element: <h1>Login del usuario</h1>,
+        element: <Login />,
     },
     {
         path: "/dashboard",
-        element: <ProfileCard name="Kevin" likes={10} />,
+        element: <Dashboard />,
     },
 ], { basename: "/compu2" });
 
