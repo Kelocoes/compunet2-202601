@@ -7,14 +7,16 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { login } from './services/login.service';
 import { useNavigate } from 'react-router';
+import AuthContext from '../../context/AuthContext';
 
 function SignIn() {
     const ref = useRef();
     const nav = useNavigate();
-    console.log("Renderizando Login");
+    const { login: setAuthToken } = useContext(AuthContext);
+
 
     const onSubmit = async (e) => {
         e.preventDefault(); // Evitar que el formulario se envíe y recargue la página
@@ -23,7 +25,7 @@ function SignIn() {
         const data = Object.fromEntries(formData);
         console.log(data);
         const response = await login(data.username, data.password);
-        localStorage.setItem('token', response.accessToken);
+        setAuthToken(response.accessToken);
         nav('/dashboard');
     };
 

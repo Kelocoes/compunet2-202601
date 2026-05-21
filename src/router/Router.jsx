@@ -3,23 +3,19 @@ import Login from "../pages/Login/Login";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Landing from "../pages/Landing/Landing";
 import Register from "../pages/Register/Register";
-import ProfileCard from "../components/ProfileCard";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const router = createBrowserRouter([
     {
-        path: "/", // @RequestMapping("/")
-        element: <ProfileCard />,
-    },
-    {
-        path: "/dashboard",
-        element: <Dashboard />,
+        path: "/",
+        element: <Landing />,
     },
     {
         path: "/auth",
         children: [
             {
-                element: <Login />,
                 index: true,
+                element: <Login />,
             },
             {
                 path: "login",
@@ -28,6 +24,15 @@ const router = createBrowserRouter([
             {
                 path: "register",
                 element: <Register />,
+            }
+        ]
+    },
+    {
+        element: <ProtectedRoute />,
+        children: [
+            {
+                path: "dashboard",
+                element: <Dashboard />,
             }
         ]
     }

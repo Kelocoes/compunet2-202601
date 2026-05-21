@@ -1,9 +1,11 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getAllGames } from "./services/games.service";
+import AuthContext from "../../context/AuthContext";
 
 export default function Dashboard() {
     const [games, setGames] = useState([]);
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -21,6 +23,7 @@ export default function Dashboard() {
     return (
         <Box style={{ height: "100vh", display: "flex", alignItems: "center", flexDirection: "column" }}>
             <Typography variant="h1" style={{ fontSize: "2rem" }}>Estoy en el dashboard!</Typography>
+            <Typography variant="body1">Usuario autenticado: {user?.username || user?.sub || user?.email || 'sin dato'}</Typography>
             <Typography variant="h2" style={{ fontSize: "1.5rem" }}>Games: {games.length}</Typography>
             {
                 games.map(game => (
