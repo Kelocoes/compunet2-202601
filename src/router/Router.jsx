@@ -4,11 +4,26 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import Landing from "../pages/Landing/Landing";
 import Register from "../pages/Register/Register";
 import ProtectedRoute from "../components/ProtectedRoute";
+import ContextPage from "../pages/Context/ContextPage";
+import StoreContextPage from "../pages/StoreContext/StoreContextPage";
+import UseContextPage from "../pages/UseContext/UseContextPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Landing />,
+    },
+    {
+        path: "/props-context",
+        element: <ContextPage />,
+    },
+    {
+        path: "/use-context",
+        element: <UseContextPage />,
+    },
+    {
+        path: "/store-context",
+        element: <StoreContextPage />,
     },
     {
         path: "/auth",
