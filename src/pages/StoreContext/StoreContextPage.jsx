@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -9,10 +8,12 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
 import ComponentA from "./components/ComponentA";
+import { decrementByAmount, incrementByAmount, store } from "../../store/store";
+import { useSelector } from "@tanstack/react-store";
 
 export default function StoreContextPage() {
     console.info("Rendering Context Page");
-    const [myState, setMyState] = useState(0);
+    const myState = useSelector(store, (state) => state.myState);
 
     return (
         <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -27,16 +28,16 @@ export default function StoreContextPage() {
                         </Typography>
 
                         <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3, maxWidth: 300 }}>
-                            <Button variant="contained" color="primary" fullWidth startIcon={<AddIcon />} onClick={() => setMyState(myState + 1)}>
+                            <Button variant="contained" color="primary" fullWidth startIcon={<AddIcon />} onClick={() => incrementByAmount(1)}>
                                 Incrementar Estado
                             </Button>
-                            <Button variant="contained" color="secondary" fullWidth startIcon={<RemoveIcon />} onClick={() => setMyState(myState - 1)}>
+                            <Button variant="contained" color="secondary" fullWidth startIcon={<RemoveIcon />} onClick={() => decrementByAmount(1)}>
                                 Decrementar Estado
                             </Button>
                         </Box>
 
                         <Box sx={{ mt: 4 }}>
-                            <ComponentA myState={myState} setMyState={setMyState} />
+                            <ComponentA />
                         </Box>
                     </CardContent>
                 </Card>

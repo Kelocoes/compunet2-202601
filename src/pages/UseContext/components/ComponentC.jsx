@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -7,10 +7,12 @@ import Box from "@mui/material/Box";
 import EditIcon from "@mui/icons-material/Edit";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import MyContext from "../../../context/MyContext";
 
-export default function ComponentC({ myState, setMyState }) {
+export default function ComponentC() {
     console.info("Rendering Component C");
     const [state, setState] = useState("Estado interno!");
+    const { myState, setMyState } = useContext(MyContext);
 
     return (
         <Card
