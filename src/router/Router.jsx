@@ -37,7 +37,7 @@ const router = createBrowserRouter([
                 element: <Login />,
             },
             {
-                path: "register",
+                path: "rgister",
                 element: <Register />,
             }
         ]
@@ -51,6 +51,6 @@ const router = createBrowserRouter([
             }
         ]
     }
-], { basename: "/compu2" });
+], { basename: "/iaslab/compu2/profe" });
 
 export default router;
