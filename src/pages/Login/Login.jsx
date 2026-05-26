@@ -7,13 +7,15 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { login } from './services/login.service';
 import { useNavigate } from 'react-router';
+import AuthContext from '../../context/AuthContext';
 
 function SignIn() {
     const ref = useRef();
     const nav = useNavigate();
+    const context = useContext(AuthContext);
     console.log("Renderizando Login");
 
     const onSubmit = async (e) => {
@@ -24,6 +26,7 @@ function SignIn() {
         console.log(data);
         const response = await login(data.username, data.password);
         localStorage.setItem('token', response.accessToken);
+        context.setToken(response.accessToken);
         nav('/dashboard');
     };
 
